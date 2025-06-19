@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>國立中央大學 住宿服務組 - NCU Horizon</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <style>
+      /* --- Custom Styles for NCU Horizon Template --- */
+
+      :root {
+        --ncu-primary: #003366; /* Deep NCU Blue */
+        --ncu-secondary: #8a2be2; /* Accent Purple - Modern Touch */
+        --ncu-light-gray: #f8f9fa;
+        --ncu-text: #333;
+        --ncu-text-light: #f1f1f1;
+      }
+
+      body {
+        font-family: "Noto Sans TC", "Poppins", sans-serif;
+        background-color: #ffffff;
+        color: var(--ncu-text);
+        scroll-behavior: smooth;
+      }
+
+      /* --- Navigation Bar --- */
+      .navbar {
+        transition: background-color 0.4s ease-out, padding 0.4s ease-out;
+        background-color: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .navbar.scrolled {
+        background-color: #ffffff;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -2px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand {
+        font-weight: 700;
+        color: var(--ncu-primary);
+      }
+
+      .nav-link {
+        font-weight: 500;
+        color: var(--ncu-primary);
+        transition: color 0.3s;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--ncu-secondary);
+      }
+
+      /* --- Hero Section --- */
+      .hero {
+        position: relative;
+        height: 60vh;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--ncu-text-light);
+        background: url("https://images.unsplash.com/photo-1586944697929-3a3f69505790?q=80&w=2070&auto=format&fit=crop")
+          no-repeat center center;
+        background-size: cover;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          45deg,
+          rgba(0, 51, 102, 0.7),
+          rgba(138, 43, 226, 0.5)
+        );
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        animation: fadeIn 1.5s ease-in-out;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+      }
+
+      .hero p {
+        font-size: 1.5rem;
+        font-weight: 400;
+      }
+
+      /* Typing animation */
+      .typing-effect {
+        border-right: 0.15em solid orange; /* The cursor */
+        white-space: nowrap;
+        overflow: hidden;
+        letter-spacing: 0.1em;
+        animation: typing 3.5s steps(30, end) forwards,
+          blink-caret 0.75s step-end infinite;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      @keyframes blink-caret {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: orange;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* --- Section Styling --- */
+      .section-title {
+        font-weight: 700;
+        color: var(--ncu-primary);
+        margin-bottom: 2rem;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: var(--ncu-secondary);
+        border-radius: 2px;
+      }
+
+      /* --- Quick Links Section --- */
+      .quick-link-card {
+        background: var(--ncu-light-gray);
+        border: 1px solid #e0e0e0;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          background-color 0.3s ease;
+        cursor: pointer;
+      }
+
+      .quick-link-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+      }
+
+      .quick-link-card i {
+        font-size: 3rem;
+        color: var(--ncu-secondary);
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease;
+      }
+
+      .quick-link-card:hover i {
+        transform: scale(1.1);
+      }
+
+      .quick-link-card h5 {
+        font-weight: 700;
+        color: var(--ncu-primary);
+      }
+
+      /* --- News Section --- */
+      .news-table {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .news-table thead {
+        background-color: var(--ncu-primary);
+        color: var(--ncu-text-light);
+      }
+
+      .news-table th {
+        font-weight: 500;
+      }
+
+      .news-table tbody tr {
+        transition: background-color 0.3s;
+      }
+
+      .news-table tbody tr:hover {
+        background-color: #eef2f7;
+      }
+
+      .news-table td a {
+        text-decoration: none;
+        color: var(--ncu-text);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .news-table td a:hover {
+        color: var(--ncu-secondary);
+      }
+
+      .pagination .page-link {
+        color: var(--ncu-primary);
+      }
+      .pagination .page-item.active .page-link {
+        background-color: var(--ncu-primary);
+        border-color: var(--ncu-primary);
+      }
+
+      /* --- Weekly Updates Section --- */
+      .updates-tabs .nav-link {
+        border: none;
+        border-bottom: 3px solid transparent;
+        color: var(--ncu-primary);
+        font-weight: 600;
+      }
+
+      .updates-tabs .nav-link.active {
+        border-color: var(--ncu-secondary);
+        color: var(--ncu-secondary);
+        background: none;
+      }
+
+      .update-card {
+        background: #fff;
+        border: 1px solid #eee;
+        border-left: 5px solid var(--ncu-secondary);
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      /* --- Instagram Section --- */
+      .instagram-card {
+        background: linear-gradient(
+          45deg,
+          #f09433 0%,
+          #e6683c 25%,
+          #dc2743 50%,
+          #cc2366 75%,
+          #bc1888 100%
+        );
+        color: white;
+        border-radius: 20px;
+        padding: 3rem;
+        text-align: center;
+      }
+
+      .instagram-card h3 {
+        font-weight: 700;
+      }
+
+      .instagram-card .btn-light {
+        font-weight: 600;
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .instagram-card .btn-light:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* --- Footer --- */
+      .footer {
+        background-color: var(--ncu-primary);
+        color: var(--ncu-text-light);
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+      }
+
+      .footer h5 {
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+
+      .footer p,
+      .footer a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer a:hover {
+        color: #fff;
+      }
+
+      .footer .hotline-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 1rem;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .footer .hotline-card i {
+        margin-right: 0.5rem;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero p {
+          font-size: 1.2rem;
+        }
+      }
+
+      /* --- Dropdown Menu Styles --- */
+      .dropdown-menu {
+        border: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 0.5rem 0;
+        margin-top: 0.5rem;
+      }
+
+      .dropdown-item {
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        color: var(--ncu-text);
+        transition: all 0.3s ease;
+      }
+
+      .dropdown-item:hover {
+        background-color: var(--ncu-light-gray);
+        color: var(--ncu-secondary);
+        transform: translateX(5px);
+      }
+
+      .dropdown-divider {
+        margin: 0.5rem 0;
+        border-top: 1px solid #eee;
+      }
+
+      .dropdown-item span {
+        font-weight: 700;
+        color: var(--ncu-primary);
+        background-color: var(--ncu-light-gray);
+      }
+
+      /* Google Translate Styling */
+      #google_translate_element {
+        margin-left: 1rem;
+      }
+
+      #google_translate_element .goog-te-combo {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          >國立中央大學 <span class="d-none d-sm-inline">|</span>
+          <span class="fw-normal">住宿服務組</span></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto navbar-center">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">首頁</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLinkA"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                宿舍相關
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLinkA"
+              >
+                <a class="dropdown-item" href="index.php">最新公告</a>
+                <a class="dropdown-item" href="about.php">認識宿服(傳達室)</a>
+                <a class="dropdown-item" href="dorm.php">宿舍介紹</a>
+                <a
+                  class="dropdown-item"
+                  href="https://speech.ncu.edu.tw/mentor/?page_id=144"
+                  >宿舍導師</a
+                >
+                <a class="dropdown-item" href="elec_price.php"
+                  >宿舍費調整專區</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="https://drive.google.com/drive/folders/1SKiWOUw3Yb68kiC5zF14Zfp-A-CWRB9G"
+                  >宿舍費收支明細</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLinkB"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                各項申請
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLinkB"
+              >
+                <a class="dropdown-item" href="certificate.php"
+                  >Certificate of Dorm</a
+                >
+                <a class="dropdown-item" href="live_dorm.php">住宿申請</a>
+                <a class="dropdown-item" href="refund.php">退宿退費申請</a>
+                <a class="dropdown-item" href="outsiders.php">宿舍會客申請</a>
+                <a class="dropdown-item" href="room_rule.new.php"
+                  >場地借用申請</a
+                >
+                <a class="dropdown-item" href="board_rule.php"
+                  >電子佈告欄申請</a
+                >
+                <div class="dropdown-divider"></div>
+                <span class="dropdown-item">大學部</span>
+                <a class="dropdown-item" href="freshman_rule.php"
+                  >　大一新生住宿調查</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLinkC"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                學生相關
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLinkC"
+              >
+                <a
+                  class="dropdown-item"
+                  href="https://sites.google.com/view/shsd-clea/%E9%A6%96%E9%A0%81"
+                  >寢室清潔標準</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="https://sites.google.com/g.ncu.edu.tw/facility?usp=sharing"
+                  >宿舍硬體設備</a
+                >
+                <a class="dropdown-item" href="QA.php">宿舍Q&A</a>
+                <a class="dropdown-item" href="table_new.php">宿舍法規與公約</a>
+                <a
+                  class="dropdown-item"
+                  href="https://in.ncu.edu.tw/~ncu7221/OSDS/reflection.php"
+                  >住宿問題反映</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="http://repair.ncu.edu.tw/RepairSystem"
+                  >宿舍修繕系統</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="https://in.ncu.edu.tw/~ncu7221/OSDS/src/docs/%E9%80%80%E5%AE%BF%E6%AA%A2%E6%9F%A5%E7%94%B3%E8%AB%8B(%E4%B8%AD%E6%96%87).pdf"
+                  >退宿流程</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="https://in.ncu.edu.tw/~ncu7221/OSDS/src/docs/%E9%80%80%E5%AE%BF%E6%AA%A2%E6%9F%A5%E7%94%B3%E8%AB%8B(%E8%8B%B1%E6%96%87).pdf"
+                  >Check out</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="https://cis.ncu.edu.tw/iNCU/stdAffair/dormRequest"
+                  >宿舍抽籤系統</a
+                >
+                <a class="dropdown-item" href="tabe_view_only_loader.php"
+                  >下載表單</a
+                >
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLinkD"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                其他資訊
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLinkD"
+              >
+                <a class="dropdown-item" href="mailsearch.php">郵件查詢</a>
+                <a class="dropdown-item" href="medical_treatment.php"
+                  >病痛就醫</a
+                >
+                <a
+                  class="dropdown-item"
+                  href="https://www.ncu.edu.tw/tw/pages/show.php?top=1&num=35"
+                  >校園地圖</a
+                >
+                <a class="dropdown-item" href="garbage.php">寢室垃圾處理</a>
+                <a class="dropdown-item" href="emergency.php">學生安全</a>
+                <a class="dropdown-item" href="sop_view.php">緊急作業SOP</a>
+                <a class="dropdown-item" href="scholarship.php"
+                  >安心就學支持計畫</a
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+      <div class="hero-content">
+        <h1 class="mb-3">住宿服務組</h1>
+        <p class="typing-effect">打造溫馨、安全、便利的校園之家</p>
+      </div>
+    </header>
+
+    <main>
+      <!-- Quick Links Section -->
+      <section id="quick-links" class="py-5">
+        <div class="container">
+          <h2 class="section-title text-center">核心服務</h2>
+          <div class="row g-4 mt-4">
+            <div class="col-lg-3 col-md-6">
+              <div class="quick-link-card">
+                <i class="bi bi-house-door-fill"></i>
+                <h5>宿舍總覽</h5>
+                <p>探索各區宿舍環境與設施。</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="quick-link-card">
+                <i class="bi bi-pencil-square"></i>
+                <h5>線上申請</h5>
+                <p>學期、寒暑假住宿申請入口。</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="quick-link-card">
+                <i class="bi bi-tools"></i>
+                <h5>修繕通報</h5>
+                <p>宿舍設施問題，即時線上報修。</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <div class="quick-link-card">
+                <i class="bi bi-question-circle-fill"></i>
+                <h5>常見問答</h5>
+                <p>快速解決您的住宿疑惑。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- News & Updates Section -->
+      <section id="news" class="py-5 bg-light">
+        <div class="container">
+          <div class="row g-5">
+            <!-- Latest News -->
+            <div class="col-lg-8">
+              <h2 class="section-title text-center">最新消息</h2>
+              <div class="news-table-container">
+                <table class="table table-hover news-table align-middle">
+                  <thead>
+                    <tr>
+                      <th scope="col" style="width: 120px">公告日期</th>
+                      <th scope="col">公告標題</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="badge bg-danger">NEW</span> 2025-06-10
+                      </td>
+                      <td><a href="#">114年大學部短期暑宿申請結果公告</a></td>
+                    </tr>
+                    <tr>
+                      <td>2025-06-06</td>
+                      <td><a href="#">114年暑期宿舍進住宿舍公告</a></td>
+                    </tr>
+                    <tr>
+                      <td>2025-06-02</td>
+                      <td>
+                        <a href="#">【徵】114年暑假學生宿舍勞務工讀二名</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2025-05-29</td>
+                      <td><a href="#">大學部短期暑宿申請說明</a></td>
+                    </tr>
+                    <tr>
+                      <td>2025-05-28</td>
+                      <td>
+                        <a href="#"
+                          >公告辦理114學年度碩博住宿生申請不續住宿舍作業</a
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2025-05-27</td>
+                      <td><a href="#">114年大學部暑期儲藏室抽籤結果</a></td>
+                    </tr>
+                    <tr>
+                      <td>2025-05-20</td>
+                      <td>
+                        <a href="#"
+                          >公告辦理114學年度碩博士生未住宿舊生申請宿舍作業</a
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2025-05-16</td>
+                      <td>
+                        <a href="#">113學年第2學期宿舍關舍時程及關舍重要事項</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <nav aria-label="Page navigation">
+                  <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#">上一頁</a>
+                    </li>
+                    <li class="page-item active">
+                      <a class="page-link" href="#">1</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                      <a class="page-link" href="#">下一頁</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+
+            <!-- Weekly Updates -->
+            <div class="col-lg-4">
+              <h2 class="section-title text-center">本週公告</h2>
+              <ul
+                class="nav nav-pills mb-3 justify-content-center updates-tabs"
+                id="pills-tab"
+                role="tablist"
+              >
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active"
+                    id="pills-announcement-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-announcement"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-announcement"
+                    aria-selected="true"
+                  >
+                    重要事項
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="pills-construction-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-construction"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-construction"
+                    aria-selected="false"
+                  >
+                    本週施工
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link"
+                    id="pills-activity-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-activity"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-activity"
+                    aria-selected="false"
+                  >
+                    本週活動
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="pills-announcement"
+                  role="tabpanel"
+                  aria-labelledby="pills-announcement-tab"
+                >
+                  <div class="update-card text-center">
+                    <p class="mb-0">今日無特別公告事項。</p>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="pills-construction"
+                  role="tabpanel"
+                  aria-labelledby="pills-construction-tab"
+                >
+                  <div class="update-card text-center">
+                    <p class="mb-0">本週無排定之施工消息。</p>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="pills-activity"
+                  role="tabpanel"
+                  aria-labelledby="pills-activity-tab"
+                >
+                  <div class="update-card text-center">
+                    <p class="mb-0">本週暫無特別活動資訊。</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Instagram Section -->
+              <div class="instagram-card mt-4">
+                <i class="bi bi-instagram fs-1 mb-2"></i>
+                <h3>加入住宿組 IG</h3>
+                <p>宿舍大小事，一手掌握！</p>
+                <a href="#" class="btn btn-light">立即追蹤</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-12">
+            <h5>國立中央大學 住宿服務組</h5>
+            <p>
+              致力於提供全校師生優質的住宿環境與服務，成為您在校園中最溫暖的依靠。
+            </p>
+            <p>行政專線：(03) 426-3926</p>
+            <p>公務信箱：ncu57290@cc.ncu.edu.tw</p>
+            <a href="#">隱私權政策聲明</a>
+          </div>
+          <div class="col-lg-8 col-md-12">
+            <h5>宿舍24小時緊急專線</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="hotline-card">
+                  <p class="mb-0">
+                    <i class="bi bi-telephone-fill"></i
+                    ><strong>東區傳達室:</strong> 0919-019-864
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="hotline-card">
+                  <p class="mb-0">
+                    <i class="bi bi-telephone-fill"></i
+                    ><strong>西區傳達室:</strong> 0919-019-964
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="hotline-card">
+                  <p class="mb-0">
+                    <i class="bi bi-telephone-fill"></i
+                    ><strong>南區傳達室:</strong> 0919-019-564
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="hotline-card">
+                  <p class="mb-0">
+                    <i class="bi bi-telephone-fill"></i
+                    ><strong>北區傳達室:</strong> 0919-019-714
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <div class="text-center">
+          <p>
+            &copy; 2025 National Central University Student Housing Service
+            Division. All Rights Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script>
+      // --- Navbar Scroll Effect ---
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+    </script>
+  </body>
+</html>
