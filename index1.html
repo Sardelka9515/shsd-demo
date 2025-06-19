@@ -34,12 +34,152 @@
         --ncu-text-light: #f1f1f1;
       }
 
+      /* Blue Theme */
+      [data-theme="blue"] {
+        --ncu-primary: #1e3a8a;
+        --ncu-secondary: #3b82f6;
+        --ncu-light-gray: #eff6ff;
+        --ncu-text: #1e293b;
+        --ncu-text-light: #f1f5f9;
+      }
+
+      /* Green Theme */
+      [data-theme="green"] {
+        --ncu-primary: #166534;
+        --ncu-secondary: #22c55e;
+        --ncu-light-gray: #f0fdf4;
+        --ncu-text: #1f2937;
+        --ncu-text-light: #f9fafb;
+      }
+
+      /* Purple Theme */
+      [data-theme="purple"] {
+        --ncu-primary: #581c87;
+        --ncu-secondary: #a855f7;
+        --ncu-light-gray: #faf5ff;
+        --ncu-text: #1f2937;
+        --ncu-text-light: #f9fafb;
+      }
+
+      /* Orange Theme */
+      [data-theme="orange"] {
+        --ncu-primary: #9a3412;
+        --ncu-secondary: #f97316;
+        --ncu-light-gray: #fff7ed;
+        --ncu-text: #1f2937;
+        --ncu-text-light: #f9fafb;
+      }
+
+      /* Dark Theme */
+      [data-theme="dark"] {
+        --ncu-primary: #f8fafc;
+        --ncu-secondary: #60a5fa;
+        --ncu-light-gray: #1e293b;
+        --ncu-text: #f1f5f9;
+        --ncu-text-light: #0f172a;
+      }
+
+      /* Dark theme specific adjustments */
+      [data-theme="dark"] body {
+        background-color: #0f172a;
+        color: var(--ncu-text);
+      }
+
+      [data-theme="dark"] .navbar {
+        background-color: rgba(15, 23, 42, 0.9);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      [data-theme="dark"] .navbar.scrolled {
+        background-color: #1e293b;
+      }
+
+      [data-theme="dark"] .quick-link-card {
+        background: #1e293b;
+        border: 1px solid #334155;
+      }
+
+      [data-theme="dark"] .quick-link-card:hover {
+        background-color: #334155;
+      }
+
+      [data-theme="dark"] .news-table {
+        background-color: #1e293b;
+      }
+
+      [data-theme="dark"] .news-table tbody tr:hover {
+        background-color: #334155;
+      }
+
+      [data-theme="dark"] .update-card {
+        background: #1e293b;
+        border: 1px solid #334155;
+      }
+
+      [data-theme="dark"] .footer {
+        background-color: #0f172a;
+      }
+
       body {
         font-family: "Noto Sans TC", "Poppins", sans-serif;
         background-color: #ffffff;
         color: var(--ncu-text);
         scroll-behavior: smooth;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
+
+      /* Theme Selector */
+      .theme-selector {
+        position: fixed;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        z-index: 1050;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+      }
+
+      [data-theme="dark"] .theme-selector {
+        background: #1e293b;
+        border: 1px solid #334155;
+      }
+
+      .theme-selector h6 {
+        margin-bottom: 10px;
+        font-weight: 600;
+        color: var(--ncu-primary);
+        text-align: center;
+      }
+
+      .theme-option {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        cursor: pointer;
+        margin: 5px;
+        transition: transform 0.2s, border-color 0.2s;
+        display: inline-block;
+      }
+
+      .theme-option:hover {
+        transform: scale(1.1);
+      }
+
+      .theme-option.active {
+        border-color: #fff;
+        box-shadow: 0 0 0 2px var(--ncu-secondary);
+      }
+
+      .theme-default { background: linear-gradient(45deg, #003366, #8a2be2); }
+      .theme-blue { background: linear-gradient(45deg, #1e3a8a, #3b82f6); }
+      .theme-green { background: linear-gradient(45deg, #166534, #22c55e); }
+      .theme-purple { background: linear-gradient(45deg, #581c87, #a855f7); }
+      .theme-orange { background: linear-gradient(45deg, #9a3412, #f97316); }
+      .theme-dark { background: linear-gradient(45deg, #0f172a, #60a5fa); }
 
       /* Navigation */
       .navbar {
@@ -97,6 +237,26 @@
           rgba(0, 51, 102, 0.7),
           rgba(138, 43, 226, 0.5)
         );
+      }
+
+      [data-theme="blue"] .hero::after {
+        background: linear-gradient(45deg, rgba(30, 58, 138, 0.7), rgba(59, 130, 246, 0.5));
+      }
+
+      [data-theme="green"] .hero::after {
+        background: linear-gradient(45deg, rgba(22, 101, 52, 0.7), rgba(34, 197, 94, 0.5));
+      }
+
+      [data-theme="purple"] .hero::after {
+        background: linear-gradient(45deg, rgba(88, 28, 135, 0.7), rgba(168, 85, 247, 0.5));
+      }
+
+      [data-theme="orange"] .hero::after {
+        background: linear-gradient(45deg, rgba(154, 52, 18, 0.7), rgba(249, 115, 22, 0.5));
+      }
+
+      [data-theme="dark"] .hero::after {
+        background: linear-gradient(45deg, rgba(15, 23, 42, 0.8), rgba(96, 165, 250, 0.6));
       }
 
       .hero-content {
@@ -377,12 +537,37 @@
         .hero p {
           font-size: 1.2rem;
         }
+        
+        .theme-selector {
+          right: 10px;
+          padding: 10px;
+        }
+        
+        .theme-option {
+          width: 30px;
+          height: 30px;
+          margin: 3px;
+        }
       }
     </style>
   </head>
   <body>
+    <!-- Theme Selector -->
+    <div class="theme-selector">
+      <h6>主題</h6>
+      <div class="d-flex flex-wrap justify-content-center">
+        <div class="theme-option theme-default active" data-theme="default" title="預設主題"></div>
+        <div class="theme-option theme-blue" data-theme="blue" title="藍色主題"></div>
+        <div class="theme-option theme-green" data-theme="green" title="綠色主題"></div>
+        <div class="theme-option theme-purple" data-theme="purple" title="紫色主題"></div>
+        <div class="theme-option theme-orange" data-theme="orange" title="橙色主題"></div>
+        <div class="theme-option theme-dark" data-theme="dark" title="深色主題"></div>
+      </div>
+    </div>
+
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+      <!-- ...existing navbar code... -->
       <div class="container">
         <a class="navbar-brand" href="#"
           >國立中央大學 <span class="d-none d-sm-inline">|</span>
@@ -580,6 +765,7 @@
     <main>
       <!-- Quick Links Section -->
       <section id="quick-links" class="py-5">
+        <!-- ...existing quick links code... -->
         <div class="container">
           <h2 class="section-title text-center">核心服務</h2>
           <div class="row g-4 mt-4">
@@ -617,6 +803,7 @@
 
       <!-- News & Updates Section -->
       <section id="news" class="py-5 bg-light">
+        <!-- ...existing news section code... -->
         <div class="container">
           <div class="row g-5">
             <!-- Latest News -->
@@ -800,6 +987,7 @@
 
     <!-- Footer -->
     <footer class="footer">
+      <!-- ...existing footer code... -->
       <div class="container">
         <div class="row g-4">
           <div class="col-lg-4 col-md-12">
@@ -872,6 +1060,49 @@
         } else {
           navbar.classList.remove("scrolled");
         }
+      });
+
+      // Theme Switching
+      document.addEventListener('DOMContentLoaded', function() {
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const body = document.body;
+        
+        // Load saved theme from localStorage
+        const savedTheme = localStorage.getItem('ncu-theme') || 'default';
+        if (savedTheme !== 'default') {
+          body.setAttribute('data-theme', savedTheme);
+        }
+        
+        // Update active theme indicator
+        themeOptions.forEach(option => {
+          option.classList.remove('active');
+          if (option.getAttribute('data-theme') === savedTheme) {
+            option.classList.add('active');
+          }
+        });
+        
+        // Add click event listeners
+        themeOptions.forEach(option => {
+          option.addEventListener('click', function() {
+            const theme = this.getAttribute('data-theme');
+            
+            // Remove active class from all options
+            themeOptions.forEach(opt => opt.classList.remove('active'));
+            
+            // Add active class to clicked option
+            this.classList.add('active');
+            
+            // Apply theme
+            if (theme === 'default') {
+              body.removeAttribute('data-theme');
+            } else {
+              body.setAttribute('data-theme', theme);
+            }
+            
+            // Save theme to localStorage
+            localStorage.setItem('ncu-theme', theme);
+          });
+        });
       });
     </script>
   </body>
