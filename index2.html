@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>國立中央大學 住宿服務組 - NCU Horizon</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --info-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            
+            --ncu-primary: #2c3e50;
+            --ncu-secondary: #3498db;
+            --ncu-accent: #e74c3c;
+            --ncu-success: #27ae60;
+            --ncu-warning: #f39c12;
+            --ncu-info: #8e44ad;
+            
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --text-light: #bdc3c7;
+            --text-white: #ffffff;
+            
+            --bg-light: #f8f9fc;
+            --bg-white: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.9);
+            
+            --shadow-soft: 0 2px 15px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-strong: 0 15px 35px rgba(0, 0, 0, 0.15);
+            
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", "Noto Sans TC", sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--bg-light);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Enhanced Theme Selector */
+        .theme-selector {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 1060;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .theme-selector:hover {
+            transform: translateY(-50%) scale(1.02);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .theme-selector h6 {
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .theme-option {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            margin: 5px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-option::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .theme-option:hover {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .theme-option.active {
+            border-color: white;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .theme-option.active::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .theme-default { background: var(--primary-gradient); }
+        .theme-secondary { background: var(--secondary-gradient); }
+        .theme-success { background: var(--success-gradient); }
+        .theme-warning { background: var(--warning-gradient); }
+        .theme-info { background: var(--info-gradient); }
+
+        /* Enhanced Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-soft);
+            padding: 0.5rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.4rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: var(--transition);
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-primary);
+            position: relative;
+            margin: 0 0.5rem;
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 80%;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--ncu-secondary);
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        /* Enhanced Dropdown */
+        .dropdown-menu {
+            border: none;
+            box-shadow: var(--shadow-medium);
+            border-radius: var(--border-radius);
+            padding: 1rem 0;
+            margin-top: 0.5rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .dropdown-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: var(--primary-gradient);
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--ncu-secondary);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item:hover::before {
+            width: 4px;
+        }
+
+        /* Hero Section Enhancement */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-white);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop") center/cover;
+            opacity: 0.3;
+            animation: heroBackground 20s ease-in-out infinite;
+        }
+
+        @keyframes heroBackground {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.9) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 400;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.8s forwards;
+        }
+
+        .hero-cta {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 1.1s forwards;
+        }
+
+        .btn-hero {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            margin: 0 0.5rem;
+        }
+
+        .btn-hero:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+            color: white;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating Elements */
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        /* Enhanced Section Styling */
+        .section-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1rem;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        /* Enhanced Quick Links */
+        .quick-link-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius-lg);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .quick-link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition);
+        }
+
+        .quick-link-card:hover::before {
+            left: 100%;
+        }
+
+        .quick-link-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-strong);
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+
+        .quick-link-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-gradient);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-link-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 120%;
+            height: 120%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .quick-link-card:hover .quick-link-icon::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .quick-link-icon i {
+            font-size: 2rem;
+            color: white;
+            z-index: 1;
+            position: relative;
+        }
+
+        .quick-link-card h5 {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .quick-link-card p {
+            color: var(--text-secondary);
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Enhanced News Table */
+        .news-section {
+            background: var(--bg-white);
+            position: relative;
+        }
+
+        .news-table-container {
+            background: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(20px);
+        }
+
+        .news-table {
+            margin: 0;
+        }
+
+        .news-table thead {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .news-table th {
+            font-weight: 600;
+            border: none;
+            padding: 1.25rem 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .news-table td {
+            border: none;
+            padding: 1.25rem 1.5rem;
+            vertical-align: middle;
+        }
+
+        .news-table tbody tr {
+            transition: var(--transition);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .news-table tbody tr:hover {
+            background: rgba(52, 152, 219, 0.05);
+            transform: translateX(5px);
+        }
+
+        .news-table td a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .news-table td a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: var(--transition);
+        }
+
+        .news-table td a:hover {
+            color: var(--ncu-secondary);
+        }
+
+        .news-table td a:hover::after {
+            width: 100%;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(220, 53, 69, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+        }
+
+        /* Enhanced Pagination */
+        .pagination .page-link {
+            color: var(--text-primary);
+            border: none;
+            margin: 0 0.25rem;
+            border-radius: var(--border-radius);
+            padding: 0.75rem 1rem;
+            transition: var(--transition);
+            background: var(--bg-card);
+        }
+
+        .pagination .page-item.active .page-link {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .pagination .page-link:hover {
+            background: var(--primary-gradient);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Enhanced Updates Section */
+        .updates-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            position: relative;
+        }
+
+        .updates-tabs .nav-link {
+            border: none;
+            border-radius: var(--border-radius);
+            color: var(--text-primary);
+            font-weight: 600;
+            padding: 1rem 1.5rem;
+            margin: 0 0.5rem;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .updates-tabs .nav-link.active {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: var(--shadow-soft);
+            transform: translateY(-2px);
+        }
+
+        .updates-tabs .nav-link:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateY(-1px);
+        }
+
+        .update-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: blur(20px);
+            transition: var(--transition);
+        }
+
+        .update-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Instagram Section Enhancement */
+        .instagram-card {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+            border-radius: var(--border-radius-lg);
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .instagram-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .instagram-card h3 {
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .instagram-card .btn-light {
+            font-weight: 600;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            border: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .instagram-card .btn-light:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Enhanced Footer */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: var(--text-light);
+            padding: 4rem 0 2rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--primary-gradient);
+        }
+
+        .footer h5 {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer h5::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-gradient);
+            border-radius: 2px;
+        }
+
+        .footer p,
+        .footer a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .hotline-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .hotline-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .hotline-card i {
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1000;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: var(--shadow-strong);
+        }
+
+        /* Loading Animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: var(--transition);
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Enhancements */
+        @media (max-width: 768px) {
+            .theme-selector {
+                right: 10px;
+                padding: 15px;
+                transform: translateY(-50%) scale(0.9);
+            }
+            
+            .theme-option {
+                width: 35px;
+                height: 35px;
+                margin: 3px;
+            }
+            
+            .hero {
+                height: 80vh;
+                padding: 0 1rem;
+            }
+            
+            .quick-link-card {
+                padding: 2rem 1rem;
+            }
+            
+            .quick-link-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .quick-link-icon i {
+                font-size: 1.5rem;
+            }
+            
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Enhanced Theme Selector -->
+    <div class="theme-selector" data-aos="fade-left" data-aos-delay="1000">
+        <h6>選擇主題</h6>
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="theme-option theme-default active" data-theme="default" title="預設主題"></div>
+            <div class="theme-option theme-secondary" data-theme="secondary" title="次要主題"></div>
+            <div class="theme-option theme-success" data-theme="success" title="成功主題"></div>
+            <div class="theme-option theme-warning" data-theme="warning" title="警告主題"></div>
+            <div class="theme-option theme-info" data-theme="info" title="資訊主題"></div>
+        </div>
+    </div>
+
+    <!-- Enhanced Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#" data-aos="fade-right">
+                國立中央大學 <span class="d-none d-sm-inline">|</span>
+                <span class="fw-normal">住宿服務組</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item" data-aos="fade-down" data-aos-delay="100">
+                        <a class="nav-link active" href="#">首頁</a>
+                    </li>
+                    <li class="nav-item dropdown" data-aos="fade-down" data-aos-delay="200">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            宿舍相關
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">最新公告</a>
+                            <a class="dropdown-item" href="#">認識宿服</a>
+                            <a class="dropdown-item" href="#">宿舍介紹</a>
+                            <a class="dropdown-item" href="#">宿舍導師</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" data-aos="fade-down" data-aos-delay="300">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            各項申請
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">住宿申請</a>
+                            <a class="dropdown-item" href="#">退宿申請</a>
+                            <a class="dropdown-item" href="#">會客申請</a>
+                            <a class="dropdown-item" href="#">場地借用</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" data-aos="fade-down" data-aos-delay="400">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            學生相關
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">宿舍Q&A</a>
+                            <a class="dropdown-item" href="#">修繕系統</a>
+                            <a class="dropdown-item" href="#">問題反映</a>
+                            <a class="dropdown-item" href="#">退宿流程</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown" data-aos="fade-down" data-aos-delay="500">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            其他資訊
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">郵件查詢</a>
+                            <a class="dropdown-item" href="#">病痛就醫</a>
+                            <a class="dropdown-item" href="#">校園地圖</a>
+                            <a class="dropdown-item" href="#">學生安全</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enhanced Hero Section -->
+    <header class="hero">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="hero-content">
+            <h1>住宿服務組</h1>
+            <p class="hero-subtitle">打造溫馨、安全、便利的校園之家</p>
+            <div class="hero-cta">
+                <button class="btn btn-hero me-3">
+                    <i class="bi bi-house-door me-2"></i>
+                    探索宿舍
+                </button>
+                <button class="btn btn-hero">
+                    <i class="bi bi-pencil-square me-2"></i>
+                    立即申請
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Enhanced Quick Links Section -->
+        <section id="quick-links" class="py-5">
+            <div class="container">
+                <h2 class="section-title text-center" data-aos="fade-up">核心服務</h2>
+                <div class="row g-4 mt-4">
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="quick-link-card">
+                            <div class="quick-link-icon">
+                                <i class="bi bi-house-door-fill"></i>
+                            </div>
+                            <h5>宿舍總覽</h5>
+                            <p>探索各區宿舍環境與設施，找到最適合您的住宿空間。</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="quick-link-card">
+                            <div class="quick-link-icon">
+                                <i class="bi bi-pencil-square"></i>
+                            </div>
+                            <h5>線上申請</h5>
+                            <p>學期、寒暑假住宿申請入口，簡化申請流程。</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="quick-link-card">
+                            <div class="quick-link-icon">
+                                <i class="bi bi-tools"></i>
+                            </div>
+                            <h5>修繕通報</h5>
+                            <p>宿舍設施問題，即時線上報修，快速解決問題。</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="quick-link-card">
+                            <div class="quick-link-icon">
+                                <i class="bi bi-question-circle-fill"></i>
+                            </div>
+                            <h5>常見問答</h5>
+                            <p>快速解決您的住宿疑惑，提供完整解答。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced News Section -->
+        <section id="news" class="py-5 news-section">
+            <div class="container">
+                <div class="row g-5">
+                    <!-- Latest News -->
+                    <div class="col-lg-8">
+                        <h2 class="section-title text-center" data-aos="fade-up">最新消息</h2>
+                        <div class="news-table-container" data-aos="fade-up" data-aos-delay="200">
+                            <table class="table table-hover news-table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="width: 150px">公告日期</th>
+                                        <th scope="col">公告標題</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span class="badge bg-danger me-2">NEW</span>
+                                            2025-06-10
+                                        </td>
+                                        <td><a href="#">114年大學部短期暑宿申請結果公告</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-06-06</td>
+                                        <td><a href="#">114年暑期宿舍進住宿舍公告</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-06-02</td>
+                                        <td><a href="#">【徵】114年暑假學生宿舍勞務工讀二名</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-05-29</td>
+                                        <td><a href="#">大學部短期暑宿申請說明</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-05-28</td>
+                                        <td><a href="#">公告辦理114學年度碩博住宿生申請不續住宿舍作業</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-05-27</td>
+                                        <td><a href="#">114年大學部暑期儲藏室抽籤結果</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-05-20</td>
+                                        <td><a href="#">公告辦理114學年度碩博士生未住宿舊生申請宿舍作業</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-05-16</td>
+                                        <td><a href="#">113學年第2學期宿舍關舍時程及關舍重要事項</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">上一頁</a>
+                                    </li>
+                                    <li class="page-item active">
+                                        <a class="page-link" href="#">1</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">2</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">3</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">下一頁</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- Weekly Updates -->
+                    <div class="col-lg-4">
+                        <h2 class="section-title text-center" data-aos="fade-up">本週公告</h2>
+                        <ul class="nav nav-pills mb-3 justify-content-center updates-tabs" role="tablist" data-aos="fade-up" data-aos-delay="100">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-announcement-tab" data-bs-toggle="pill" 
+                                        data-bs-target="#pills-announcement" type="button" role="tab">
+                                    重要事項
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-construction-tab" data-bs-toggle="pill" 
+                                        data-bs-target="#pills-construction" type="button" role="tab">
+                                    本週施工
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-activity-tab" data-bs-toggle="pill" 
+                                        data-bs-target="#pills-activity" type="button" role="tab">
+                                    本週活動
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+                            <div class="tab-pane fade show active" id="pills-announcement" role="tabpanel">
+                                <div class="update-card text-center">
+                                    <i class="bi bi-info-circle text-primary mb-3" style="font-size: 2rem;"></i>
+                                    <p class="mb-0">今日無特別公告事項。</p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-construction" role="tabpanel">
+                                <div class="update-card text-center">
+                                    <i class="bi bi-tools text-warning mb-3" style="font-size: 2rem;"></i>
+                                    <p class="mb-0">本週無排定之施工消息。</p>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-activity" role="tabpanel">
+                                <div class="update-card text-center">
+                                    <i class="bi bi-calendar-event text-success mb-3" style="font-size: 2rem;"></i>
+                                    <p class="mb-0">本週暫無特別活動資訊。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Instagram Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="instagram-card" data-aos="zoom-in">
+                            <h3 class="mb-4">
+                                <i class="bi bi-instagram me-3"></i>
+                                關注我們的Instagram
+                            </h3>
+                            <p class="mb-4 lead">
+                                獲取最新宿舍資訊、活動花絮和生活分享
+                            </p>
+                            <a href="#" class="btn btn-light">
+                                <i class="bi bi-instagram me-2"></i>
+                                立即關注
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Enhanced Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <h5>聯絡資訊</h5>
+                    <div class="hotline-card">
+                        <i class="bi bi-telephone-fill"></i>
+                        <strong>服務專線：03-422-7151 #57212</strong>
+                    </div>
+                    <p><i class="bi bi-geo-alt-fill me-2"></i>320317 桃園市中壢區中大路300號</p>
+                    <p><i class="bi bi-envelope-fill me-2"></i>ncu7212@ncu.edu.tw</p>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <h5>快速連結</h5>
+                    <p><a href="#">住宿申請系統</a></p>
+                    <p><a href="#">修繕通報系統</a></p>
+                    <p><a href="#">宿舍規則</a></p>
+                    <p><a href="#">常見問題</a></p>
+                </div>
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <h5>服務時間</h5>
+                    <p><strong>週一至週五</strong></p>
+                    <p>上午 8:00 - 12:00</p>
+                    <p>下午 13:00 - 17:00</p>
+                    <p class="text-warning mt-3">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        例假日及國定假日暫停服務
+                    </p>
+                </div>
+            </div>
+            <hr class="my-4" style="border-color: rgba(255, 255, 255, 0.2);">
+            <div class="text-center">
+                <p class="mb-0">© 2025 國立中央大學住宿服務組. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Loading Screen
+        window.addEventListener('load', function() {
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            setTimeout(() => {
+                loadingOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    loadingOverlay.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+
+        // Enhanced Navbar Scroll Effect
+        const navbar = document.getElementById('mainNav');
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Hide/show navbar on scroll
+            if (scrollTop > lastScrollTop && scrollTop > 200) {
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                navbar.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // Scroll to Top Button
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Enhanced Theme Selector
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const root = document.documentElement;
+
+        const themes = {
+            default: {
+                '--primary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                '--secondary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                '--ncu-primary': '#2c3e50',
+                '--ncu-secondary': '#3498db'
+            },
+            secondary: {
+                '--primary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                '--secondary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                '--ncu-primary': '#8e44ad',
+                '--ncu-secondary': '#e91e63'
+            },
+            success: {
+                '--primary-gradient': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                '--secondary-gradient': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                '--ncu-primary': '#1e3a8a',
+                '--ncu-secondary': '#06b6d4'
+            },
+            warning: {
+                '--primary-gradient': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                '--secondary-gradient': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                '--ncu-primary': '#166534',
+                '--ncu-secondary': '#10b981'
+            },
+            info: {
+                '--primary-gradient': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                '--secondary-gradient': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                '--ncu-primary': '#7c2d12',
+                '--ncu-secondary': '#f97316'
+            }
+        };
+
+        themeOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const theme = this.dataset.theme;
+                
+                // Remove active class from all options
+                themeOptions.forEach(opt => opt.classList.remove('active'));
+                
+                // Add active class to clicked option
+                this.classList.add('active');
+                
+                // Apply theme
+                const themeVars = themes[theme];
+                Object.keys(themeVars).forEach(property => {
+                    root.style.setProperty(property, themeVars[property]);
+                });
+
+                // Add ripple effect
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.6);
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    pointer-events: none;
+                `;
+                
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (rect.width / 2 - size / 2) + 'px';
+                ripple.style.top = (rect.height / 2 - size / 2) + 'px';
+                
+                this.style.position = 'relative';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Enhanced Quick Link Cards
+        const quickLinkCards = document.querySelectorAll('.quick-link-card');
+        
+        quickLinkCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Enhanced News Table Row Animation
+        const newsRows = document.querySelectorAll('.news-table tbody tr');
+        
+        newsRows.forEach((row, index) => {
+            row.style.animationDelay = `${index * 0.1}s`;
+            
+            row.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(10px)';
+                this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            });
+            
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Enhanced tab switching animation
+        const tabButtons = document.querySelectorAll('[data-bs-toggle="pill"]');
+        
+        tabButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Add loading animation
+                const targetPane = document.querySelector(this.getAttribute('data-bs-target'));
+                if (targetPane) {
+                    targetPane.style.opacity = '0';
+                    targetPane.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        targetPane.style.opacity = '1';
+                        targetPane.style.transform = 'translateY(0)';
+                    }, 150);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
