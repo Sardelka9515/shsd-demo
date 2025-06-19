@@ -402,6 +402,32 @@
       .pagination .page-item.active .page-link {
         background-color: var(--ncu-primary);
         border-color: var(--ncu-primary);
+        color: white;
+      }
+
+      .pagination .page-link:hover {
+        color: var(--ncu-secondary);
+        background-color: var(--ncu-light-gray);
+        border-color: var(--ncu-secondary);
+      }
+
+      /* Dark theme pagination adjustments */
+      [data-theme="dark"] .pagination .page-link {
+        background-color: #1e293b;
+        border-color: #334155;
+        color: var(--ncu-text);
+      }
+
+      [data-theme="dark"] .pagination .page-item.active .page-link {
+        background-color: var(--ncu-secondary);
+        border-color: var(--ncu-secondary);
+        color: #0f172a;
+      }
+
+      [data-theme="dark"] .pagination .page-link:hover {
+        background-color: #334155;
+        border-color: var(--ncu-secondary);
+        color: var(--ncu-secondary);
       }
 
       /* Weekly Updates */
@@ -561,7 +587,7 @@
         <div class="theme-option theme-green" data-theme="green" title="綠色主題"></div>
         <div class="theme-option theme-purple" data-theme="purple" title="紫色主題"></div>
         <div class="theme-option theme-orange" data-theme="orange" title="橙色主題"></div>
-        <div class="theme-option theme-dark" data-theme="dark" title="深色主題"></div>
+        <!-- <div class="theme-option theme-dark" data-theme="dark" title="深色主題"></div> -->
       </div>
     </div>
 
@@ -1040,8 +1066,8 @@
         <hr class="my-4" />
         <div class="text-center">
           <p>
-            &copy; 2025 National Central University Student Housing Service
-            Division. All Rights Reserved.
+            &copy; 2025 National Central University Student Housing
+            Service Division. All Rights Reserved.
           </p>
         </div>
       </div>
