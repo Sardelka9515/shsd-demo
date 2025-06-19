@@ -21,12 +21,22 @@
 
     <style>
         :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            /* Primary theme variables */
+            --primary-color-1: #667eea;
+            --primary-color-2: #764ba2;
+            --secondary-color-1: #f093fb;
+            --secondary-color-2: #f5576c;
+            --accent-color-1: #4facfe;
+            --accent-color-2: #00f2fe;
+            
+            /* Computed gradients */
+            --primary-gradient: linear-gradient(135deg, var(--primary-color-1) 0%, var(--primary-color-2) 100%);
+            --secondary-gradient: linear-gradient(135deg, var(--secondary-color-1) 0%, var(--secondary-color-2) 100%);
+            --success-gradient: linear-gradient(135deg, var(--accent-color-1) 0%, var(--accent-color-2) 100%);
             --warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
             --info-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
             
+            /* Theme colors */
             --ncu-primary: #2c3e50;
             --ncu-secondary: #3498db;
             --ncu-accent: #e74c3c;
@@ -34,21 +44,27 @@
             --ncu-warning: #f39c12;
             --ncu-info: #8e44ad;
             
+            /* Text colors */
             --text-primary: #2c3e50;
             --text-secondary: #7f8c8d;
             --text-light: #bdc3c7;
             --text-white: #ffffff;
             
+            /* Background colors */
             --bg-light: #f8f9fc;
             --bg-white: #ffffff;
             --bg-card: rgba(255, 255, 255, 0.9);
             
+            /* Shadows */
             --shadow-soft: 0 2px 15px rgba(0, 0, 0, 0.08);
             --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
             --shadow-strong: 0 15px 35px rgba(0, 0, 0, 0.15);
             
+            /* Border radius */
             --border-radius: 16px;
             --border-radius-lg: 24px;
+            
+            /* Transitions */
             --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -66,6 +82,7 @@
             background: var(--bg-light);
             overflow-x: hidden;
             scroll-behavior: smooth;
+            transition: var(--transition);
         }
 
         /* Enhanced Theme Selector */
@@ -136,11 +153,11 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        .theme-default { background: var(--primary-gradient); }
-        .theme-secondary { background: var(--secondary-gradient); }
-        .theme-success { background: var(--success-gradient); }
-        .theme-warning { background: var(--warning-gradient); }
-        .theme-info { background: var(--info-gradient); }
+        .theme-default { background: linear-gradient(45deg, #667eea, #764ba2); }
+        .theme-secondary { background: linear-gradient(45deg, #f093fb, #f5576c); }
+        .theme-success { background: linear-gradient(45deg, #4facfe, #00f2fe); }
+        .theme-warning { background: linear-gradient(45deg, #43e97b, #38f9d7); }
+        .theme-info { background: linear-gradient(45deg, #fa709a, #fee140); }
 
         /* Enhanced Navigation */
         .navbar {
@@ -257,7 +274,7 @@
             width: 4px;
         }
 
-        /* Hero Section Enhancement */
+        /* Hero Section Enhancement - Fixed to use CSS variables */
         .hero {
             position: relative;
             height: 100vh;
@@ -266,8 +283,9 @@
             justify-content: center;
             text-align: center;
             color: var(--text-white);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary-gradient);
             overflow: hidden;
+            transition: var(--transition);
         }
 
         .hero::before {
@@ -294,7 +312,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.9) 100%);
+            background: var(--primary-gradient);
+            opacity: 0.8;
+            transition: var(--transition);
         }
 
         .hero-content {
@@ -415,6 +435,7 @@
             position: relative;
             padding-bottom: 1rem;
             font-size: clamp(1.8rem, 3vw, 2.5rem);
+            transition: var(--transition);
         }
 
         .section-title::after {
@@ -427,6 +448,7 @@
             height: 4px;
             background: var(--primary-gradient);
             border-radius: 2px;
+            transition: var(--transition);
         }
 
         /* Enhanced Quick Links */
@@ -508,18 +530,21 @@
             color: var(--text-primary);
             margin-bottom: 1rem;
             font-size: 1.3rem;
+            transition: var(--transition);
         }
 
         .quick-link-card p {
             color: var(--text-secondary);
             margin: 0;
             font-size: 0.95rem;
+            transition: var(--transition);
         }
 
         /* Enhanced News Table */
         .news-section {
             background: var(--bg-white);
             position: relative;
+            transition: var(--transition);
         }
 
         .news-table-container {
@@ -528,6 +553,7 @@
             overflow: hidden;
             box-shadow: var(--shadow-soft);
             backdrop-filter: blur(20px);
+            transition: var(--transition);
         }
 
         .news-table {
@@ -550,6 +576,8 @@
             border: none;
             padding: 1.25rem 1.5rem;
             vertical-align: middle;
+            color: var(--text-primary);
+            transition: var(--transition);
         }
 
         .news-table tbody tr {
@@ -631,6 +659,7 @@
         .updates-section {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             position: relative;
+            transition: var(--transition);
         }
 
         .updates-tabs .nav-link {
@@ -669,6 +698,11 @@
         .update-card:hover {
             transform: translateY(-5px);
             box-shadow: var(--shadow-medium);
+        }
+
+        .update-card p {
+            color: var(--text-primary);
+            transition: var(--transition);
         }
 
         /* Instagram Section Enhancement */
@@ -725,6 +759,7 @@
             color: var(--text-light);
             padding: 4rem 0 2rem;
             position: relative;
+            transition: var(--transition);
         }
 
         .footer::before {
@@ -1297,42 +1332,100 @@
             });
         });
 
-        // Enhanced Theme Selector
+        // Fixed Theme Selector
         const themeOptions = document.querySelectorAll('.theme-option');
         const root = document.documentElement;
 
+        // Define theme configurations with proper color values
         const themes = {
             default: {
-                '--primary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                '--secondary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                '--primary-color-1': '#667eea',
+                '--primary-color-2': '#764ba2',
+                '--secondary-color-1': '#f093fb',
+                '--secondary-color-2': '#f5576c',
+                '--accent-color-1': '#4facfe',
+                '--accent-color-2': '#00f2fe',
                 '--ncu-primary': '#2c3e50',
                 '--ncu-secondary': '#3498db'
             },
             secondary: {
-                '--primary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-                '--secondary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                '--primary-color-1': '#f093fb',
+                '--primary-color-2': '#f5576c',
+                '--secondary-color-1': '#667eea',
+                '--secondary-color-2': '#764ba2',
+                '--accent-color-1': '#fa709a',
+                '--accent-color-2': '#fee140',
                 '--ncu-primary': '#8e44ad',
                 '--ncu-secondary': '#e91e63'
             },
             success: {
-                '--primary-gradient': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-                '--secondary-gradient': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                '--primary-color-1': '#4facfe',
+                '--primary-color-2': '#00f2fe',
+                '--secondary-color-1': '#43e97b',
+                '--secondary-color-2': '#38f9d7',
+                '--accent-color-1': '#667eea',
+                '--accent-color-2': '#764ba2',
                 '--ncu-primary': '#1e3a8a',
                 '--ncu-secondary': '#06b6d4'
             },
             warning: {
-                '--primary-gradient': 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-                '--secondary-gradient': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+                '--primary-color-1': '#43e97b',
+                '--primary-color-2': '#38f9d7',
+                '--secondary-color-1': '#4facfe',
+                '--secondary-color-2': '#00f2fe',
+                '--accent-color-1': '#fa709a',
+                '--accent-color-2': '#fee140',
                 '--ncu-primary': '#166534',
                 '--ncu-secondary': '#10b981'
             },
             info: {
-                '--primary-gradient': 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-                '--secondary-gradient': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                '--primary-color-1': '#fa709a',
+                '--primary-color-2': '#fee140',
+                '--secondary-color-1': '#43e97b',
+                '--secondary-color-2': '#38f9d7',
+                '--accent-color-1': '#4facfe',
+                '--accent-color-2': '#00f2fe',
                 '--ncu-primary': '#7c2d12',
                 '--ncu-secondary': '#f97316'
             }
         };
+
+        function applyTheme(themeName) {
+            const themeConfig = themes[themeName];
+            if (!themeConfig) return;
+
+            // Apply all theme variables
+            Object.entries(themeConfig).forEach(([property, value]) => {
+                root.style.setProperty(property, value);
+            });
+
+            // Force update computed gradients by triggering a reflow
+            root.style.setProperty('--primary-gradient', 
+                `linear-gradient(135deg, ${themeConfig['--primary-color-1']} 0%, ${themeConfig['--primary-color-2']} 100%)`);
+            root.style.setProperty('--secondary-gradient', 
+                `linear-gradient(135deg, ${themeConfig['--secondary-color-1']} 0%, ${themeConfig['--secondary-color-2']} 100%)`);
+            root.style.setProperty('--success-gradient', 
+                `linear-gradient(135deg, ${themeConfig['--accent-color-1']} 0%, ${themeConfig['--accent-color-2']} 100%)`);
+
+            // Update elements that need manual refresh
+            const elementsToUpdate = [
+                '.hero',
+                '.hero::after',
+                '.navbar-brand',
+                '.quick-link-icon',
+                '.section-title::after',
+                '.news-table thead',
+                '.updates-tabs .nav-link.active',
+                '.pagination .page-item.active .page-link',
+                '.scroll-top',
+                '.loading-overlay'
+            ];
+
+            // Force a style recalculation
+            document.body.style.display = 'none';
+            document.body.offsetHeight; // Trigger reflow
+            document.body.style.display = '';
+        }
 
         themeOptions.forEach(option => {
             option.addEventListener('click', function() {
@@ -1345,10 +1438,7 @@
                 this.classList.add('active');
                 
                 // Apply theme
-                const themeVars = themes[theme];
-                Object.keys(themeVars).forEach(property => {
-                    root.style.setProperty(property, themeVars[property]);
-                });
+                applyTheme(theme);
 
                 // Add ripple effect
                 const ripple = document.createElement('div');
@@ -1373,7 +1463,23 @@
                 setTimeout(() => {
                     ripple.remove();
                 }, 600);
+
+                // Store theme preference
+                localStorage.setItem('selectedTheme', theme);
             });
+        });
+
+        // Load saved theme on page load
+        window.addEventListener('load', function() {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme && themes[savedTheme]) {
+                const themeOption = document.querySelector(`[data-theme="${savedTheme}"]`);
+                if (themeOption) {
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    themeOption.classList.add('active');
+                    applyTheme(savedTheme);
+                }
+            }
         });
 
         // Add ripple animation CSS
