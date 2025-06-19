@@ -26,11 +26,9 @@
     />
 
     <style>
-      /* --- Custom Styles for NCU Horizon Template --- */
-
       :root {
-        --ncu-primary: #003366; /* Deep NCU Blue */
-        --ncu-secondary: #8a2be2; /* Accent Purple - Modern Touch */
+        --ncu-primary: #003366;
+        --ncu-secondary: #8a2be2;
         --ncu-light-gray: #f8f9fa;
         --ncu-text: #333;
         --ncu-text-light: #f1f1f1;
@@ -43,19 +41,17 @@
         scroll-behavior: smooth;
       }
 
-      /* --- Navigation Bar --- */
+      /* Navigation */
       .navbar {
-        transition: background-color 0.4s ease-out, padding 0.4s ease-out;
+        transition: background-color 0.4s ease-out;
         background-color: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
         border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       }
 
       .navbar.scrolled {
         background-color: #ffffff;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-          0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       }
 
       .navbar-brand {
@@ -74,7 +70,7 @@
         color: var(--ncu-secondary);
       }
 
-      /* --- Hero Section --- */
+      /* Hero Section */
       .hero {
         position: relative;
         height: 60vh;
@@ -119,9 +115,9 @@
         font-weight: 400;
       }
 
-      /* Typing animation */
+      /* Animations */
       .typing-effect {
-        border-right: 0.15em solid orange; /* The cursor */
+        border-right: 0.15em solid orange;
         white-space: nowrap;
         overflow: hidden;
         letter-spacing: 0.1em;
@@ -130,22 +126,13 @@
       }
 
       @keyframes typing {
-        from {
-          width: 0;
-        }
-        to {
-          width: 100%;
-        }
+        from { width: 0; }
+        to { width: 100%; }
       }
 
       @keyframes blink-caret {
-        from,
-        to {
-          border-color: transparent;
-        }
-        50% {
-          border-color: orange;
-        }
+        from, to { border-color: transparent; }
+        50% { border-color: orange; }
       }
 
       @keyframes fadeIn {
@@ -159,7 +146,7 @@
         }
       }
 
-      /* --- Section Styling --- */
+      /* Section Title */
       .section-title {
         font-weight: 700;
         color: var(--ncu-primary);
@@ -180,15 +167,14 @@
         border-radius: 2px;
       }
 
-      /* --- Quick Links Section --- */
+      /* Quick Links */
       .quick-link-card {
         background: var(--ncu-light-gray);
         border: 1px solid #e0e0e0;
         border-radius: 15px;
         padding: 2rem;
         text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease,
-          background-color 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
         cursor: pointer;
       }
 
@@ -214,7 +200,7 @@
         color: var(--ncu-primary);
       }
 
-      /* --- News Section --- */
+      /* News Table */
       .news-table {
         border-radius: 15px;
         overflow: hidden;
@@ -252,12 +238,13 @@
       .pagination .page-link {
         color: var(--ncu-primary);
       }
+      
       .pagination .page-item.active .page-link {
         background-color: var(--ncu-primary);
         border-color: var(--ncu-primary);
       }
 
-      /* --- Weekly Updates Section --- */
+      /* Weekly Updates */
       .updates-tabs .nav-link {
         border: none;
         border-bottom: 3px solid transparent;
@@ -280,7 +267,7 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       }
 
-      /* --- Instagram Section --- */
+      /* Instagram Section */
       .instagram-card {
         background: linear-gradient(
           45deg,
@@ -312,7 +299,7 @@
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       }
 
-      /* --- Footer --- */
+      /* Footer */
       .footer {
         background-color: var(--ncu-primary);
         color: var(--ncu-text-light);
@@ -349,16 +336,7 @@
         margin-right: 0.5rem;
       }
 
-      @media (max-width: 768px) {
-        .hero h1 {
-          font-size: 2.5rem;
-        }
-        .hero p {
-          font-size: 1.2rem;
-        }
-      }
-
-      /* --- Dropdown Menu Styles --- */
+      /* Dropdown Menu */
       .dropdown-menu {
         border: none;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -391,16 +369,14 @@
         background-color: var(--ncu-light-gray);
       }
 
-      /* Google Translate Styling */
-      #google_translate_element {
-        margin-left: 1rem;
-      }
-
-      #google_translate_element .goog-te-combo {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 0.25rem 0.5rem;
-        font-size: 0.875rem;
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .hero p {
+          font-size: 1.2rem;
+        }
       }
     </style>
   </head>
@@ -424,7 +400,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto navbar-center">
+          <ul class="navbar-nav ms-auto">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">首頁</a>
             </li>
@@ -888,7 +864,7 @@
 
     <!-- Custom JS -->
     <script>
-      // --- Navbar Scroll Effect ---
+      // Navbar Scroll Effect
       window.addEventListener("scroll", function () {
         const navbar = document.querySelector(".navbar");
         if (window.scrollY > 50) {
